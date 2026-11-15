@@ -5,6 +5,7 @@ import analog from '@analogjs/platform';
 
 // https://vitejs.dev/config/
 export default defineConfig(({ mode }) => ({
+  base: '/blog-latest/',
   build: {
     target: ['es2020'],
   },
@@ -12,7 +13,26 @@ export default defineConfig(({ mode }) => ({
     mainFields: ['module'],
   },
   plugins: [
-    analog(),
+    analog({
+      content: {
+        highlighter: 'prism',
+      },
+      prerender: {
+        routes: async () => [
+          '/',
+          '/about',
+          {
+            contentDir: 'src/content/blog',
+            transform: (file) => {
+              if (file.attributes.draft) return false;
+              const slug = file.attributes.slug || file.name;
+              return `/blog/${slug}`;
+            },
+          },
+        ],
+        sitemap: { host: 'https://linuswieland.github.io/blog-latest' },
+      },
+    }),
   ],
   test: {
     globals: true,
