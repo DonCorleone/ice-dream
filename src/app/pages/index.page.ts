@@ -4,6 +4,7 @@ import { DatePipe } from '@angular/common';
 import { injectContentFiles } from '@analogjs/content';
 
 import { PostAttributes } from '../post.model';
+import { PageAttributes } from '../page.model';
 import { injectSiteSettings } from '../site-settings';
 
 @Component({
@@ -38,10 +39,31 @@ import { injectSiteSettings } from '../site-settings';
         <li>No posts yet.</li>
       }
     </ul>
+
+    @if (pages.length) {
+      <h2>Pages</h2>
+      <ul class="post-list">
+        @for (page of pages; track page.attributes.slug) {
+          <li class="post-card">
+            <a [routerLink]="['/page', page.attributes.slug]">
+              <div class="post-card-body">
+                <h2>{{ page.attributes.title }}</h2>
+                @if (page.attributes.description) {
+                  <p>{{ page.attributes.description }}</p>
+                }
+              </div>
+            </a>
+          </li>
+        }
+      </ul>
+    }
   `,
 })
 export default class HomePage {
   readonly settings = injectSiteSettings();
+  readonly pages = injectContentFiles<PageAttributes>((file) =>
+    file.filename.includes('src/content/pages/'),
+  ).sort((a, b) => a.attributes.title.localeCompare(b.attributes.title));
   readonly posts = injectContentFiles<PostAttributes>((file) =>
     file.filename.includes('src/content/blog/'),
   ).sort(

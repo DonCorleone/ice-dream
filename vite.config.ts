@@ -28,6 +28,8 @@ export default defineConfig(({ mode }) => ({
               const slug = file.attributes.slug || file.name;
               return `/blog/${slug}`;
             },
+            outputSourceFile: (file) =>
+              file.attributes.draft ? false : file.content,
           },
           {
             contentDir: 'src/content/pages',
@@ -35,6 +37,7 @@ export default defineConfig(({ mode }) => ({
               const slug = file.attributes.slug || file.name;
               return `/page/${slug}`;
             },
+            outputSourceFile: (file) => file.content,
           },
         ],
         sitemap: { host: 'https://DonCorleone.github.io/ice-dream' },
