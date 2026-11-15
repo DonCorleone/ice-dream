@@ -18,6 +18,7 @@ collections:
     label: Blog Posts
     label_singular: Post
     folder: src/content/blog
+    icon: article
     create: true
     slug: '{{slug}}'
     format: frontmatter
@@ -34,6 +35,7 @@ collections:
     label: Pages
     label_singular: Page
     folder: src/content/pages
+    icon: account_tree
     create: true
     slug: '{{slug}}'
     format: frontmatter
