@@ -59,5 +59,5 @@ export const routeMeta: RouteMeta = {
   `,
 })
 export default class BlogPostPage {
-  readonly post$ = injectContent<PostAttributes>();
+  readonly post$ = injectContent<PostAttributes>({ subdirectory: 'blog', param: 'slug' });
 }
