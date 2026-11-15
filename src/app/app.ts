@@ -1,12 +1,13 @@
 import { Component } from '@angular/core';
 import { RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
+import { injectSiteSettings } from './site-settings';
 
 @Component({
   selector: 'app-root',
   imports: [RouterOutlet, RouterLink, RouterLinkActive],
   template: `
     <nav class="site-nav">
-      <a routerLink="/" class="brand">My Blog</a>
+      <a routerLink="/" class="brand">{{ settings?.title ?? 'My Blog' }}</a>
       <a routerLink="/" [routerLinkActiveOptions]="{ exact: true }" routerLinkActive="active">Home</a>
       <a routerLink="/about" routerLinkActive="active">About</a>
     </nav>
@@ -44,4 +45,6 @@ import { RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
     }
   `,
 })
-export class App {}
+export class App {
+  readonly settings = injectSiteSettings();
+}

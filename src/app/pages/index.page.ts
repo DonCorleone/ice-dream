@@ -4,14 +4,15 @@ import { DatePipe } from '@angular/common';
 import { injectContentFiles } from '@analogjs/content';
 
 import { PostAttributes } from '../post.model';
+import { injectSiteSettings } from '../site-settings';
 
 @Component({
   selector: 'app-home',
   imports: [RouterLink, DatePipe],
   template: `
     <header class="hero">
-      <h1>My AnalogJS Blog</h1>
-      <p>Posts about Angular, AnalogJS and web dev.</p>
+      <h1>{{ settings?.title ?? 'My Blog' }}</h1>
+      <p>{{ settings?.tagline }}</p>
     </header>
 
     <ul class="post-list">
@@ -40,6 +41,7 @@ import { PostAttributes } from '../post.model';
   `,
 })
 export default class HomePage {
+  readonly settings = injectSiteSettings();
   readonly posts = injectContentFiles<PostAttributes>((file) =>
     file.filename.includes('src/content/blog/'),
   ).sort(
