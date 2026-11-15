@@ -5,7 +5,7 @@ import analog from '@analogjs/platform';
 
 // https://vitejs.dev/config/
 export default defineConfig(({ mode }) => ({
-  base: '/blog-latest/',
+  base: '/ice-dream/',
   build: {
     target: ['es2020'],
   },
@@ -30,7 +30,7 @@ export default defineConfig(({ mode }) => ({
             },
           },
         ],
-        sitemap: { host: 'https://linuswieland.github.io/blog-latest' },
+        sitemap: { host: 'https://linuswieland.github.io/ice-dream' },
       },
     }),
   ],
