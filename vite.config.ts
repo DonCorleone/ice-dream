@@ -29,6 +29,13 @@ export default defineConfig(({ mode }) => ({
               return `/blog/${slug}`;
             },
           },
+          {
+            contentDir: 'src/content/pages',
+            transform: (file) => {
+              const slug = file.attributes.slug || file.name;
+              return `/page/${slug}`;
+            },
+          },
         ],
         sitemap: { host: 'https://DonCorleone.github.io/ice-dream' },
       },
