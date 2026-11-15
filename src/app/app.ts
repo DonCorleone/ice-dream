@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import { RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
+import { injectContentFiles } from '@analogjs/content';
 import { injectSiteSettings } from './site-settings';
+import { PageAttributes } from './page.model';
 
 @Component({
   selector: 'app-root',
@@ -10,6 +12,9 @@ import { injectSiteSettings } from './site-settings';
       <a routerLink="/" class="brand">{{ settings?.title ?? 'My Blog' }}</a>
       <a routerLink="/" [routerLinkActiveOptions]="{ exact: true }" routerLinkActive="active">Home</a>
       <a routerLink="/about" routerLinkActive="active">About</a>
+      @for (page of pages; track page.attributes.slug) {
+        <a [routerLink]="['/page', page.attributes.slug]" routerLinkActive="active">{{ page.attributes.title }}</a>
+      }
     </nav>
     <main>
       <router-outlet />
@@ -47,4 +52,7 @@ import { injectSiteSettings } from './site-settings';
 })
 export class App {
   readonly settings = injectSiteSettings();
+  readonly pages = injectContentFiles<PageAttributes>((file) =>
+    file.filename.includes('src/content/pages/'),
+  ).sort((a, b) => a.attributes.title.localeCompare(b.attributes.title));
 }
