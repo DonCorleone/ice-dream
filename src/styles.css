@@ -1,18 +1,126 @@
+@import '@picocss/pico/css/pico.min.css';
 @import 'prismjs/themes/prism.css';
 
-html, body {
+/* Prism default theme adds a light text-shadow to code — ugly on dark. */
+pre,
+pre code,
+pre .token {
+  text-shadow: none;
+}
+
+/* Layout: Pico classless handles typography, colors, dark mode, forms. */
+
+app-root {
   display: block;
-  height: 100%;
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 0 var(--pico-spacing);
 }
 
-body {
+main {
+  padding-bottom: 2rem;
+}
+
+pre code {
+  background: transparent;
+  padding: 0;
+}
+
+.site-nav {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.site-nav .brand {
+  font-weight: 700;
+  margin-right: auto;
+  text-decoration: none;
+}
+
+.nav-links {
+  display: flex;
+  gap: 1rem;
+  list-style: none;
   margin: 0;
-  color: #1f2430;
-  background: #fafafa;
+  padding: 0;
 }
 
-.hero h1 {
-  margin-bottom: 0.25rem;
+.nav-links a {
+  text-decoration: none;
+}
+
+.nav-links a.active {
+  font-weight: 600;
+  text-decoration: underline;
+}
+
+.menu-btn {
+  display: none;
+  margin: 0;
+  padding: 0.25rem 0.6rem;
+  font-size: 1.1rem;
+  line-height: 1;
+  background: none;
+  border: 1px solid var(--pico-muted-border-color);
+  border-radius: var(--pico-border-radius);
+  color: inherit;
+  cursor: pointer;
+}
+
+#mobile-nav:not(:popover-open) {
+  display: none;
+}
+
+#mobile-nav {
+  inset: unset;
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  width: min(280px, 80vw);
+  margin: 0;
+  padding: 1.25rem;
+  border: none;
+  border-radius: 0;
+  background: var(--pico-background-color);
+  color: var(--pico-color);
+  box-shadow: -4px 0 24px rgba(0, 0, 0, 0.2);
+}
+
+#mobile-nav::backdrop {
+  background: rgba(0, 0, 0, 0.4);
+}
+
+#mobile-nav ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+#mobile-nav a {
+  display: block;
+  padding: 0.5rem 0.75rem;
+  border-radius: var(--pico-border-radius);
+  text-decoration: none;
+}
+
+#mobile-nav a.active {
+  font-weight: 600;
+  background: var(--pico-secondary-background);
+  color: var(--pico-secondary-inverse);
+}
+
+@media (max-width: 768px) {
+  .nav-links {
+    display: none;
+  }
+  .menu-btn {
+    display: inline-block;
+  }
 }
 
 .post-list {
@@ -22,39 +130,11 @@ body {
   gap: 1.5rem;
 }
 
-.post-card a {
-  display: block;
-  background: #fff;
-  border: 1px solid #e5e7eb;
-  border-radius: 12px;
-  overflow: hidden;
-  color: inherit;
-  transition: box-shadow 0.15s ease;
-}
-
-.post-card a:hover {
-  box-shadow: 0 6px 24px rgba(0, 0, 0, 0.08);
-}
-
 .post-card img {
   width: 100%;
   height: 200px;
   object-fit: cover;
   display: block;
-}
-
-.post-card-body {
-  padding: 1rem 1.25rem 1.25rem;
-}
-
-.post-card-body h2 {
-  margin: 0 0 0.25rem;
-}
-
-.meta {
-  color: #6b7280;
-  font-size: 0.875rem;
-  margin: 0 0 0.5rem;
 }
 
 .tags {
@@ -63,26 +143,39 @@ body {
   gap: 0.5rem;
   padding: 0;
   margin: 0.5rem 0 0;
-  color: #6b7280;
   font-size: 0.8rem;
-}
-
-.post .back {
-  font-size: 0.9rem;
+  opacity: 0.7;
 }
 
 .post .cover {
   width: 100%;
-  border-radius: 12px;
+  border-radius: var(--pico-border-radius);
   margin: 1rem 0;
 }
 
-.post-content {
-  display: block;
-  line-height: 1.7;
-}
+@media (prefers-color-scheme: dark) {
+  :root {
+    color-scheme: dark;
+    --pico-background-color: #14161c;
+    --pico-color: #e4e7ee;
+    --pico-muted-color: #98a0b3;
+    --pico-muted-border-color: #2b303d;
+    --pico-primary: #8ab4ff;
+    --pico-primary-hover: #a9c6ff;
+    --pico-secondary-background: #232837;
+    --pico-secondary-inverse: #e4e7ee;
+    --pico-card-background-color: #1b1f29;
+    --pico-card-border-color: #2b303d;
+    --pico-code-background-color: #1b1f29;
+    --pico-code-color: #d7dce8;
+  }
 
-.post-content pre {
-  border-radius: 8px;
-  overflow-x: auto;
+  pre {
+    background: var(--pico-code-background-color);
+    color: var(--pico-code-color);
+  }
+
+  .post-card a {
+    color: inherit;
+  }
 }

@@ -10,44 +10,50 @@ import { PageAttributes } from './page.model';
   template: `
     <nav class="site-nav">
       <a routerLink="/" class="brand">{{ settings?.title ?? 'My Blog' }}</a>
-      <a routerLink="/" [routerLinkActiveOptions]="{ exact: true }" routerLinkActive="active">Home</a>
-      <a routerLink="/about" routerLinkActive="active">About</a>
-      @for (page of pages; track page.attributes.slug) {
-        <a [routerLink]="['/page', page.attributes.slug]" routerLinkActive="active">{{ page.attributes.title }}</a>
-      }
+      <ul class="nav-links">
+        <li>
+          <a routerLink="/" [routerLinkActiveOptions]="{ exact: true }" routerLinkActive="active">Home</a>
+        </li>
+        <li><a routerLink="/about" routerLinkActive="active">About</a></li>
+        @for (page of pages; track page.attributes.slug) {
+          <li>
+            <a [routerLink]="['/page', page.attributes.slug]" routerLinkActive="active">{{ page.attributes.title }}</a>
+          </li>
+        }
+      </ul>
+      <button
+        class="menu-btn"
+        popovertarget="mobile-nav"
+        popovertargetaction="show"
+        aria-label="Open navigation"
+      >
+        &#9776;
+      </button>
+    </nav>
+    <nav id="mobile-nav" popover aria-label="Mobile navigation">
+      <ul>
+        <li>
+          <a routerLink="/" [routerLinkActiveOptions]="{ exact: true }" routerLinkActive="active"
+             popovertarget="mobile-nav" popovertargetaction="hide"
+             (click)="closeMenu()">Home</a>
+        </li>
+        <li>
+          <a routerLink="/about" routerLinkActive="active"
+             popovertarget="mobile-nav" popovertargetaction="hide"
+             (click)="closeMenu()">About</a>
+        </li>
+        @for (page of pages; track page.attributes.slug) {
+          <li>
+            <a [routerLink]="['/page', page.attributes.slug]" routerLinkActive="active"
+               popovertarget="mobile-nav" popovertargetaction="hide"
+               (click)="closeMenu()">{{ page.attributes.title }}</a>
+          </li>
+        }
+      </ul>
     </nav>
     <main>
       <router-outlet />
     </main>
-  `,
-  styles: `
-    :host {
-      display: block;
-      max-width: 860px;
-      margin: 0 auto;
-      padding: 1.5rem;
-      font-family: system-ui, sans-serif;
-    }
-    .site-nav {
-      display: flex;
-      gap: 1rem;
-      align-items: center;
-      padding-bottom: 1rem;
-      border-bottom: 1px solid #e2e2e2;
-      margin-bottom: 2rem;
-    }
-    .brand {
-      font-weight: 700;
-      margin-right: auto;
-    }
-    a {
-      color: #1a56db;
-      text-decoration: none;
-    }
-    a.active {
-      font-weight: 600;
-      text-decoration: underline;
-    }
   `,
 })
 export class App {
@@ -55,4 +61,8 @@ export class App {
   readonly pages = injectContentFiles<PageAttributes>((file) =>
     file.filename.includes('src/content/pages/'),
   ).sort((a, b) => a.attributes.title.localeCompare(b.attributes.title));
+
+  closeMenu() {
+    document.getElementById('mobile-nav')?.hidePopover?.();
+  }
 }
