@@ -1,5 +1,5 @@
 ---
-title: Content Routes in AnalogJS
+title: Neva is the best
 slug: content-routes-in-analogjs
 description: How markdown files become routes and how to list and render them.
 coverImage: https://images.unsplash.com/photo-1455390582262-044cdead277a?w=1200
@@ -8,6 +8,7 @@ tags:
   - analogjs
   - content
   - markdown
+draft: false
 ---
 
 AnalogJS turns files in `src/content` into content you can query at build time.
