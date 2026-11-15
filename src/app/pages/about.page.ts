@@ -6,7 +6,7 @@ import { RouterLink } from '@angular/router';
   imports: [RouterLink],
   template: `
     <h1>About</h1>
-    <p>A blog built from scratch with the latest AnalogJS and Angular.</p>
+    <p>A blog built from scratch with the latest AnalogJS and Angular. xxx</p>
     <a routerLink="/">Back to posts</a>
   `,
 })
