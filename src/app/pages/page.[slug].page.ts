@@ -3,11 +3,7 @@ import { AsyncPipe } from '@angular/common';
 import { RouterLink } from '@angular/router';
 import { MarkdownComponent, injectContent } from '@analogjs/content';
 
-export interface PageAttributes {
-  title: string;
-  slug: string;
-  description?: string;
-}
+import { PageAttributes } from '../page.model';
 
 @Component({
   selector: 'app-static-page',
