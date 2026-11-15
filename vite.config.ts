@@ -30,7 +30,7 @@ export default defineConfig(({ mode }) => ({
             },
           },
         ],
-        sitemap: { host: 'https://linuswieland.github.io/ice-dream' },
+        sitemap: { host: 'https://DonCorleone.github.io/ice-dream' },
       },
     }),
   ],
