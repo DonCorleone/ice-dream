@@ -2,12 +2,13 @@
 title: Welcome to My Blog
 slug: welcome-to-my-blog
 description: First post on this brand-new AnalogJS blog.
-coverImage: https://images.unsplash.com/photo-1499750310107-5fef28a66643?w=1200
+coverImage: /ice-dream/images/uploads/1013797.webp
 publishedAt: 2026-11-01
 tags:
   - analogjs
   - angular
   - meta
+draft: false
 ---
 
 Welcome! This blog runs on **AnalogJS** with Angular 22.
